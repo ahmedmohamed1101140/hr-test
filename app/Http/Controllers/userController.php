@@ -26,9 +26,13 @@ class userController extends Controller
     public function index()
     {
 
-	//$users = User::latest()->get();
-    $users = User::latest()->where('user_name','!=','0')->get();
+    $ldap = new ldapUsers();
+    $ldapH = new ldapHelperMethods();
 
+
+    //dd($ldapH->get_all_disabled_user());
+
+    $users = User::latest()->where('user_name','!=','0')->get();
 	return view('users.index', compact('users'));
     }
 
