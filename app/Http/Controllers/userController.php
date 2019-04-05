@@ -29,8 +29,15 @@ class userController extends Controller
     public function index()
     {
 
-	//$users = User::latest()->get();
+	
+
+		//$users = User::latest()->get();
     $users = User::latest()->where('user_name','!=','0')->where('status','Enabled')->get();
+	
+	$ldap = new ldapUsers();
+	
+        //dd($ldap->user_enable($users[10]->user_name));
+
 
 	return view('users.index', compact('users'));
     }
@@ -64,7 +71,7 @@ class userController extends Controller
 
     public function changeStatus(Request $request){
 
-
+	dd("dfdf");
         $user = User::where('user_id',$request->id)->first();
         if(!$user){
             session()->flash('warning','User Not Found');
@@ -72,7 +79,7 @@ class userController extends Controller
         }
 
         $ldap = new ldapUsers();
-
+	dd($ldap->user_disable($user->user_name));
         if($user->status == 'Enabled'){
             $user->status = 'Disabled';
             $ldap->user_disable($user->user_name);

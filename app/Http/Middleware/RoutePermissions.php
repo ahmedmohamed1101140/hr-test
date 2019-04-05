@@ -17,7 +17,7 @@ class RoutePermissions
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        //return $next($request);
         $user = User::where('user_id',Session::get('user')[0]->user_id)->first();
         if($user){
             $permissions = $user->permissions();

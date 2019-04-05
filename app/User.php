@@ -100,7 +100,7 @@ class User extends Authenticatable
         $roles = UserData::select('role_id')->where('user_id',$this->id)->get();
 
         $permissions = RolePermissions::whereIn('role_id',$roles)->distinct()->get(['permission_id'])->toArray();
-        $permissions = permission::select('url','description')->whereIn('id',$permissions)->get();
+        $permissions = Permission::select('url','description')->whereIn('id',$permissions)->get();
         return $permissions;
 
         //return array of unique user permissions
